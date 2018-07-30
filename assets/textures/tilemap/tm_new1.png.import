@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ship-32b.png-3f20feb6b0fe4d537a1a104004e6c3e9.stex"
+path="res://.import/tm_new1.png-a00dd0ac7a60f092296e069afbb8f369.stex"
 
 [deps]
 
-source_file="res://assets/textures/entities/ship-32b.png"
-dest_files=[ "res://.import/ship-32b.png-3f20feb6b0fe4d537a1a104004e6c3e9.stex" ]
+source_file="res://assets/textures/tilemap/tm_new1.png"
+dest_files=[ "res://.import/tm_new1.png-a00dd0ac7a60f092296e069afbb8f369.stex" ]
 
 [params]
 
