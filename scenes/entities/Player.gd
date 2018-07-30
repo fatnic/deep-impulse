@@ -27,9 +27,6 @@ func _physics_process(delta):
 		$ThrustSound.stop()
 		$Engine/Flames.emitting = false
 		
-	if Input.is_action_just_pressed("ui_up"):
-		$Engine.rotation = 0
-		
 		
 func thrust(force):
 	$Engine.apply_impulse(Vector2(), Vector2(0, -force).rotated($Engine.rotation))
