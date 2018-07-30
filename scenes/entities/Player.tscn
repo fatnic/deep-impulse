@@ -1,0 +1,144 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/entities/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/entities/ship-32a.png" type="Texture" id=2]
+[ext_resource path="res://assets/sounds/rocket.ogg" type="AudioStream" id=3]
+
+[sub_resource type="Gradient" id=1]
+
+offsets = PoolRealArray( 0, 0.672515, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.8125, 0.516193, 0.0539551, 1, 0.863281, 0.0573273, 0.0573273, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+
+flags = 4
+gradient = SubResource( 1 )
+width = 2048
+
+[sub_resource type="Curve" id=3]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0.432883, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.338867 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+
+flags = 4
+width = 2048
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 3.08846e-41
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 45.0
+angle_random = 1.0
+scale = 1.5
+scale_random = 0.0
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Color" ]
+
+[sub_resource type="RectangleShape2D" id=6]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2, 4 )
+
+[node name="Player" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+thrust = 22
+max_thrust = 100
+turn_speed = 1.5
+
+[node name="Engine" type="RigidBody2D" parent="." index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 10.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = 5.0
+_sections_unfolded = [ "Angular", "Applied Forces" ]
+
+[node name="Flames" type="Particles2D" parent="Engine" index="0"]
+
+position = Vector2( 0, 3 )
+emitting = false
+amount = 6
+lifetime = 0.4
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 5 )
+texture = null
+normal_map = null
+h_frames = 1
+v_frames = 1
+
+[node name="Sprite" type="Sprite" parent="Engine" index="1"]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Engine" index="2"]
+
+shape = SubResource( 6 )
+
+[node name="ThrustSound" type="AudioStreamPlayer" parent="." index="1"]
+
+stream = ExtResource( 3 )
+volume_db = -10.0
+pitch_scale = 0.8
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+
