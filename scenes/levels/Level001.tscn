@@ -1,12 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/tilemaps/test_0001.tmx" type="PackedScene" id=1]
-[ext_resource path="res://scenes/entities/SmallFuelCell.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/entities/LargeFuelCell.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/levels/Level001.gd" type="Script" id=1]
+[ext_resource path="res://assets/tilemaps/test_0001.tmx" type="PackedScene" id=2]
+[ext_resource path="res://scenes/entities/interactables/FuelCell_Large.tscn" type="PackedScene" id=3]
 
-[node name="Level001" type="Node2D"]
+[node name="Level001" type="Node2D" index="0"]
 
-[node name="test_0001" parent="." index="0" instance=ExtResource( 1 )]
+script = ExtResource( 1 )
+
+[node name="test_0001" parent="." index="0" instance=ExtResource( 2 )]
 
 position = Vector2( 0, -440 )
 
@@ -16,12 +18,10 @@ position = Vector2( 72, 335.434 )
 
 [node name="Pickups" type="Node" parent="." index="2"]
 
-[node name="SmallFuelCell" parent="Pickups" index="0" instance=ExtResource( 2 )]
+[node name="FuelCells" type="Node" parent="Pickups" index="0"]
 
-position = Vector2( 300.377, 182.002 )
+[node name="FuelCell_Large" parent="Pickups/FuelCells" index="0" instance=ExtResource( 3 )]
 
-[node name="LargeFuelCell" parent="Pickups" index="1" instance=ExtResource( 3 )]
-
-position = Vector2( 40.2373, 98.7956 )
+position = Vector2( 55.1029, 97.9496 )
 
 

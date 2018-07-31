@@ -11,7 +11,6 @@ export (float) var fuel_per_second = 5
 export (int) var max_structural = 100
 export (int) var structural = 100
 
-
 signal fuel_changed
 signal structural_changed
 
@@ -56,6 +55,8 @@ func thrust(force):
 	if fuel == 0:
 		$ThrustSound.stop()
 		$Engine/Flames.emitting = false
+		structural = 0
+		emit_signal("structural_changed", structural * 100 / max_structural) 
 		explode()
 		return
 
@@ -85,9 +86,14 @@ func check_collision():
 		if cols:
 			structural -= (del * 2) * get_process_delta_time()
 			emit_signal("structural_changed", structural * 100 / max_structural) 
-			
-			
+		
+		
 func explode():
+	breakup(null)
+	
+			
+func breakup(origin):
+
 	var xp = exploded.instance()
 	xp.position = $Engine.global_position
 	xp.rotation = $Engine.global_rotation
@@ -99,4 +105,10 @@ func explode():
 	
 	var parts = get_tree().get_nodes_in_group("exploded_player")
 	for p in parts:
-		p.linear_velocity = vel	
+		p.linear_velocity = vel
+	
+#	var expl = load("res://scenes/entities/Explosion.tscn").instance()
+#	expl.position = xp.global_position - Vector2(0, -5).rotated(xp.rotation)
+#	get_tree().get_root().add_child(expl)
+	
+	

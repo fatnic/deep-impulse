@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fuel_cell_largel.png-925bfd708b1092ac5b9a2ff060f082a5.stex"
+path="res://.import/fuel_cell_large.png-8285975340ee24b6d04b192cfbc76594.stex"
 
 [deps]
 
-source_file="res://assets/textures/entities/fuel_cell_largel.png"
-dest_files=[ "res://.import/fuel_cell_largel.png-925bfd708b1092ac5b9a2ff060f082a5.stex" ]
+source_file="res://assets/textures/entities/fuel_cell_large.png"
+dest_files=[ "res://.import/fuel_cell_large.png-8285975340ee24b6d04b192cfbc76594.stex" ]
 
 [params]
 
