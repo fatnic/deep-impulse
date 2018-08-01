@@ -13,21 +13,16 @@ extents = Vector2( 1.5, 2 )
 "fuel_cells",
 ] instance=ExtResource( 1 )]
 
-collision_mask = 1
 script = ExtResource( 2 )
 fuel_amount = 20
 
-[node name="RigidBody2D" parent="." index="1"]
-
-_sections_unfolded = [ "Collision" ]
-
-[node name="Sprite" parent="RigidBody2D" index="0"]
+[node name="Sprite" parent="." index="0"]
 
 texture = ExtResource( 3 )
 hframes = 2
 _sections_unfolded = [ "Animation" ]
 
-[node name="CollisionShape2D" parent="RigidBody2D" index="1"]
+[node name="CollisionShape2D" parent="." index="1"]
 
 shape = SubResource( 1 )
 

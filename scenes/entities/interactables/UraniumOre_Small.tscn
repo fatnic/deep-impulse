@@ -9,27 +9,18 @@
 custom_solver_bias = 0.0
 extents = Vector2( 2.5, 1 )
 
-[node name="UraniumOre_Small" groups=[
+[node name="UraniumOre_Small" index="0" groups=[
 "fuel_cells",
 ] instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
-collectable = true
 fuel_amount = 10
 
-[node name="CollisionShape2D" parent="." index="0"]
-
-visible = false
-
-[node name="RigidBody2D" parent="." index="1"]
-
-mass = 100.0
-
-[node name="Sprite" parent="RigidBody2D" index="0"]
+[node name="Sprite" parent="." index="0"]
 
 texture = ExtResource( 3 )
 
-[node name="CollisionShape2D" parent="RigidBody2D" index="1"]
+[node name="CollisionShape2D" parent="." index="1"]
 
 shape = SubResource( 1 )
 

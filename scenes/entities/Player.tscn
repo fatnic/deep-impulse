@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/textures/entities/engine.png" type="Texture" id=2]
 [ext_resource path="res://assets/sounds/rocket.ogg" type="AudioStream" id=3]
+[ext_resource path="res://scenes/entities/upgrades/FuelTank.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/entities/upgrades/ShieldLeft.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/entities/upgrades/ShieldRight.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -73,20 +76,50 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color" ]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
-thrust = 22
+thrust = 40
 max_thrust = 100
 turn_speed = 1.5
 max_fuel = 100
 fuel = 100
-fuel_per_second = 5
+fuel_per_second = 2.0
 max_structural = 100
 structural = 100
 
-[node name="Engine" type="RigidBody2D" parent="." index="0"]
+[node name="FuelTankJoint" type="PinJoint2D" parent="." index="0"]
 
+visible = false
+node_a = NodePath("../Engine")
+node_b = NodePath("../FuelTank")
+bias = 0.0
+disable_collision = false
+softness = 0.0
+
+[node name="ShieldLeftJoint" type="PinJoint2D" parent="." index="1"]
+
+visible = false
+position = Vector2( -2, 3 )
+node_a = NodePath("../Engine")
+node_b = NodePath("../ShieldLeft")
+bias = 0.0
+disable_collision = false
+softness = 0.0
+
+[node name="ShieldRightJoint" type="PinJoint2D" parent="." index="2"]
+
+visible = false
+position = Vector2( 2, 3 )
+node_a = NodePath("../Engine")
+node_b = NodePath("../ShieldRight")
+bias = 0.0
+disable_collision = false
+softness = 0.0
+
+[node name="Engine" type="RigidBody2D" parent="." index="3"]
+
+editor/display_folded = true
 position = Vector2( 0, 4 )
 input_pickable = false
 collision_layer = 1
@@ -139,7 +172,7 @@ h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Time" ]
 
-[node name="ThrustSound" type="AudioStreamPlayer" parent="." index="1"]
+[node name="ThrustSound" type="AudioStreamPlayer" parent="." index="4"]
 
 stream = ExtResource( 3 )
 volume_db = -10.0
@@ -147,5 +180,19 @@ pitch_scale = 0.8
 autoplay = false
 mix_target = 0
 bus = "Master"
+
+[node name="FuelTank" parent="." index="5" instance=ExtResource( 4 )]
+
+mass = 0.01
+
+[node name="ShieldLeft" parent="." index="6" instance=ExtResource( 5 )]
+
+position = Vector2( -2.5, 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="ShieldRight" parent="." index="7" instance=ExtResource( 6 )]
+
+position = Vector2( 2.5, 3 )
+_sections_unfolded = [ "Transform" ]
 
 

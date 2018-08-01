@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/levels/Level001.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/HUD.gd" type="Script" id=3]
 [ext_resource path="res://assets/textures/ui/progress_bar_100.png" type="Texture" id=4]
+[ext_resource path="res://resources/pixel_font.tres" type="DynamicFont" id=5]
 
 [node name="Main" type="Node" index="0"]
 
@@ -93,17 +94,18 @@ anchor_right = 0.5
 anchor_bottom = 0.0
 margin_left = -20.0
 margin_top = 10.0
-margin_right = 20.0
-margin_bottom = 14.0
+margin_right = 89.0
+margin_bottom = 25.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+custom_fonts/font = ExtResource( 5 )
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Margin" ]
+_sections_unfolded = [ "Margin", "custom_fonts" ]
 
 

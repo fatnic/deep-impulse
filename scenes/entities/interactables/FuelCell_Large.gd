@@ -16,4 +16,4 @@ func exited(body):
 func interacting():
 	not_interactive()
 	emit_signal("fuel_collected", fuel_amount)
-	$RigidBody2D/Sprite.frame = 1
+	$Sprite.frame = 1

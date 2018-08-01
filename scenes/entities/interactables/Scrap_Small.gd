@@ -1,8 +1,8 @@
 extends "res://scenes/entities/interactables/base/Interactable.gd"
 
-export (float) var fuel_amount = 20
+export (float) var scrap_amount = 25
 
-signal fuel_collected
+signal scrap_collected
 
 func _ready():
 	pass
@@ -15,5 +15,5 @@ func exited(body):
 
 func interacting():
 	not_interactive()
-	emit_signal("fuel_collected", fuel_amount)
-	$Sprite.frame = 1
+	emit_signal("scrap_collected", scrap_amount)
+	queue_free()

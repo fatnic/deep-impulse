@@ -11,6 +11,8 @@ export (float) var fuel_per_second = 5
 export (int) var max_structural = 100
 export (int) var structural = 100
 
+var fuel_tank_fitted = false
+
 signal fuel_changed
 signal structural_changed
 
@@ -18,7 +20,9 @@ onready var exploded = preload("res://scenes/entities/ExplodedPlayer.tscn")
 
 
 func _ready():
+	
 	emit_signal("fuel_changed", fuel * 100 / max_fuel)
+
 
 
 func rotate_ship(direction):
@@ -41,8 +45,8 @@ func _physics_process(delta):
 		$ThrustSound.stop()
 		$Engine/Flames.emitting = false
 		
-	if Input.is_action_just_pressed("explode"):
-		explode()
+	if Input.is_action_just_pressed("jettison"):
+		jettison_fueltank()
 		
 	check_collision()
 		
@@ -74,10 +78,17 @@ func fuel_collected(amount):
 	emit_signal("fuel_changed", fuel * 100 / max_fuel)
 
 
+func scrap_collected(amount):
+	var new_structural = structural + amount
+	structural = min(new_structural, max_structural)
+	emit_signal("structural_changed", structural * 100 / max_structural) 
+	
+
 func check_collision():
 	
 	if structural < 0:
-		explode()
+		pass
+#		explode()
 		
 	#TODO: Fix this shitty system
 	var del = $Engine.linear_velocity.length()
@@ -115,4 +126,17 @@ func breakup(origin):
 #	expl.position = xp.global_position - Vector2(0, -5).rotated(xp.rotation)
 #	get_tree().get_root().add_child(expl)
 	
+func upgrade_collected(upgrade):
+	print(upgrade)
+	call(upgrade)
 	
+func fit_fueltank():
+	fuel_tank_fitted = true
+	$FuelTank/Sprite.visible = true
+	$FuelTank/CollisionShape2D.disabled = false
+	$FuelTank.mass = 2
+	
+func jettison_fueltank():
+	if fuel_tank_fitted:
+		$FuelTankJoint.free()
+		$FuelTank.apply_impulse(Vector2(2, 0), Vector2(0, -80).rotated($FuelTank.rotation))
