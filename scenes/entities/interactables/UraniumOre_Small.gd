@@ -1,6 +1,6 @@
 extends "res://scenes/entities/interactables/base/Interactable.gd"
 
-export (float) var fuel_amount = 50
+export (float) var fuel_amount = 10
 
 signal fuel_collected
 
@@ -16,4 +16,4 @@ func exited(body):
 func interacting():
 	not_interactive()
 	emit_signal("fuel_collected", fuel_amount)
-	$RigidBody2D/Sprite.frame = 1
+	queue_free()

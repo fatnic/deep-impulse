@@ -1,6 +1,6 @@
 extends "res://scenes/entities/interactables/base/Interactable.gd"
 
-export (float) var fuel_amount = 50
+export (float) var fuel_amount = 20
 
 signal fuel_collected
 

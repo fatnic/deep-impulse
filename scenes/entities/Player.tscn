@@ -4,31 +4,36 @@
 [ext_resource path="res://assets/textures/entities/engine.png" type="Texture" id=2]
 [ext_resource path="res://assets/sounds/rocket.ogg" type="AudioStream" id=3]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2, 4 )
+
+[sub_resource type="Gradient" id=2]
 
 offsets = PoolRealArray( 0, 0.672515, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.8125, 0.516193, 0.0539551, 1, 0.863281, 0.0573273, 0.0573273, 1 )
 
-[sub_resource type="GradientTexture" id=2]
+[sub_resource type="GradientTexture" id=3]
 
 flags = 4
-gradient = SubResource( 1 )
+gradient = SubResource( 2 )
 width = 2048
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=4]
 
 min_value = 0.0
 max_value = 1.0
 bake_resolution = 100
 _data = [ Vector2( 0.432883, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.338867 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
+[sub_resource type="CurveTexture" id=5]
 
 flags = 4
 width = 2048
-curve = SubResource( 3 )
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=6]
 
 render_priority = 0
 trail_divisor = 1
@@ -57,8 +62,8 @@ angle = 45.0
 angle_random = 1.0
 scale = 1.5
 scale_random = 0.0
-scale_curve = SubResource( 4 )
-color_ramp = SubResource( 2 )
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 hue_variation = 0.0
 hue_variation_random = 0.0
 anim_speed = 0.0
@@ -67,11 +72,6 @@ anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color" ]
-
-[sub_resource type="RectangleShape2D" id=6]
-
-custom_solver_bias = 0.0
-extents = Vector2( 2, 4 )
 
 [node name="Player" type="Node2D"]
 
@@ -87,7 +87,6 @@ structural = 100
 
 [node name="Engine" type="RigidBody2D" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, 4 )
 input_pickable = false
 collision_layer = 1
@@ -107,9 +106,17 @@ linear_velocity = Vector2( 0, 0 )
 linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = 5.0
-_sections_unfolded = [ "Angular", "Applied Forces" ]
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision" ]
 
-[node name="Flames" type="Particles2D" parent="Engine" index="0"]
+[node name="Sprite" type="Sprite" parent="Engine" index="0"]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Engine" index="1"]
+
+shape = SubResource( 1 )
+
+[node name="Flames" type="Particles2D" parent="Engine" index="2"]
 
 position = Vector2( 0, 3 )
 emitting = false
@@ -125,21 +132,12 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = SubResource( 5 )
+process_material = SubResource( 6 )
 texture = null
 normal_map = null
 h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Time" ]
-
-[node name="Sprite" type="Sprite" parent="Engine" index="1"]
-
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Engine" index="2"]
-
-visible = false
-shape = SubResource( 6 )
 
 [node name="ThrustSound" type="AudioStreamPlayer" parent="." index="1"]
 

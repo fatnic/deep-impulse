@@ -7,7 +7,9 @@
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Interactable" type="Area2D" index="0"]
+[node name="Interactable" type="Area2D" index="0" groups=[
+"interactables",
+]]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -17,7 +19,9 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 interactable = true
+collectable = true
 interact_range = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]

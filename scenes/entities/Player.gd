@@ -106,6 +106,10 @@ func breakup(origin):
 	var parts = get_tree().get_nodes_in_group("exploded_player")
 	for p in parts:
 		p.linear_velocity = vel
+		
+	var camera = $Engine/PlayerCam
+	$Engine.remove_child(camera)
+	xp.get_node("ShipPart1").add_child(camera)
 	
 #	var expl = load("res://scenes/entities/Explosion.tscn").instance()
 #	expl.position = xp.global_position - Vector2(0, -5).rotated(xp.rotation)

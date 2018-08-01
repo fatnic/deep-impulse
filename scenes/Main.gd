@@ -4,11 +4,11 @@ export (PackedScene) var current_level
 
 func _ready():
 	
-
 	var level = current_level.instance()
 	$World.add_child(level)
 
 	var camera = Camera2D.new()
+	camera.set_name("PlayerCam")
 	camera.limit_left = 0
 	camera.limit_right = 640
 	camera.limit_bottom = 360
@@ -20,11 +20,13 @@ func _ready():
 	player.connect("fuel_changed", $HUD, "update_fuelbar")
 	player.connect("structural_changed", $HUD, "update_structural")
 	
+	var interactables = get_tree().get_nodes_in_group("interactables")
+	for inter in interactables:
+		inter.connect("set_notification", $HUD, "set_notification")
+	
 	var fuel_cells = get_tree().get_nodes_in_group("fuel_cells")
 	for cell in fuel_cells:
 		cell.connect("fuel_collected", player, "fuel_collected")
 	
 	player.get_node("Engine").add_child(camera)
 	$World.add_child(player)
-	
-
