@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/textures/ui/progress_bar_100.png" type="Texture" id=4]
 [ext_resource path="res://resources/pixel_font.tres" type="DynamicFont" id=5]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = ExtResource( 1 )
 current_level = ExtResource( 2 )

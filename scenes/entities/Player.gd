@@ -12,6 +12,7 @@ export (int) var max_structural = 100
 export (int) var structural = 100
 
 var fuel_tank_fitted = false
+var shielding_fitted = false
 
 signal fuel_changed
 signal structural_changed
@@ -20,7 +21,6 @@ onready var exploded = preload("res://scenes/entities/ExplodedPlayer.tscn")
 
 
 func _ready():
-	
 	emit_signal("fuel_changed", fuel * 100 / max_fuel)
 
 
@@ -136,7 +136,18 @@ func fit_fueltank():
 	$FuelTank/CollisionShape2D.disabled = false
 	$FuelTank.mass = 2
 	
+func fit_shielding():
+	shielding_fitted = true
+	$ShieldLeft/Sprite.visible = true
+	$ShieldRight/Sprite.visible = true
+	$ShieldLeft/CollisionShape2D.disabled = false
+	$ShieldRight/CollisionShape2D.disabled = false
+	$ShieldLeft.mass = 2
+	$ShieldRight.mass = 2
+	
+	
 func jettison_fueltank():
 	if fuel_tank_fitted:
+		fuel_tank_fitted = false
 		$FuelTankJoint.free()
 		$FuelTank.apply_impulse(Vector2(2, 0), Vector2(0, -80).rotated($FuelTank.rotation))

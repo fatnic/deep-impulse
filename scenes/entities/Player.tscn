@@ -2,10 +2,10 @@
 
 [ext_resource path="res://scenes/entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/textures/entities/engine.png" type="Texture" id=2]
-[ext_resource path="res://assets/sounds/rocket.ogg" type="AudioStream" id=3]
-[ext_resource path="res://scenes/entities/upgrades/FuelTank.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/entities/upgrades/ShieldLeft.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/entities/upgrades/ShieldRight.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/entities/upgrades/FuelTank.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/entities/upgrades/ShieldLeft.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/entities/upgrades/ShieldRight.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sounds/rocket.ogg" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -81,10 +81,10 @@ _sections_unfolded = [ "Color" ]
 script = ExtResource( 1 )
 thrust = 40
 max_thrust = 100
-turn_speed = 1.5
+turn_speed = 3.0
 max_fuel = 100
 fuel = 100
-fuel_per_second = 2.0
+fuel_per_second = 5.0
 max_structural = 100
 structural = 100
 
@@ -96,6 +96,7 @@ node_b = NodePath("../FuelTank")
 bias = 0.0
 disable_collision = false
 softness = 0.0
+_sections_unfolded = [ "Transform" ]
 
 [node name="ShieldLeftJoint" type="PinJoint2D" parent="." index="1"]
 
@@ -172,27 +173,28 @@ h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Time" ]
 
-[node name="ThrustSound" type="AudioStreamPlayer" parent="." index="4"]
+[node name="FuelTank" parent="." index="4" instance=ExtResource( 3 )]
 
-stream = ExtResource( 3 )
+mass = 0.01
+_sections_unfolded = [ "Transform" ]
+
+[node name="ShieldLeft" parent="." index="5" instance=ExtResource( 4 )]
+
+position = Vector2( -2.6, 3.1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="ShieldRight" parent="." index="6" instance=ExtResource( 5 )]
+
+position = Vector2( 2.6, 3.1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="ThrustSound" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 6 )
 volume_db = -10.0
 pitch_scale = 0.8
 autoplay = false
 mix_target = 0
 bus = "Master"
-
-[node name="FuelTank" parent="." index="5" instance=ExtResource( 4 )]
-
-mass = 0.01
-
-[node name="ShieldLeft" parent="." index="6" instance=ExtResource( 5 )]
-
-position = Vector2( -2.5, 3 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="ShieldRight" parent="." index="7" instance=ExtResource( 6 )]
-
-position = Vector2( 2.5, 3 )
-_sections_unfolded = [ "Transform" ]
 
 

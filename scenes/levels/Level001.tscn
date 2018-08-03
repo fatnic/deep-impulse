@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/tilemaps/test_0001.tmx" type="PackedScene" id=1]
 [ext_resource path="res://scenes/entities/interactables/UraniumOre_Small.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/entities/interactables/FuelCell_Large.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/entities/interactables/Scrap_Small.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/entities/interactables/FuelTank.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/entities/interactables/Shielding.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/entities/interactables/FuelCell_Small.tscn" type="PackedScene" id=7]
 
-[node name="Level001" type="Node2D"]
+[node name="Level001" type="Node2D" index="0"]
 
 [node name="test_0001" parent="." index="0" instance=ExtResource( 1 )]
 
@@ -36,8 +38,16 @@ position = Vector2( 570.663, 341.796 )
 
 position = Vector2( 597.519, 341.796 )
 
-[node name="FuelTank" parent="." index="3" instance=ExtResource( 5 )]
+[node name="FuelTank" parent="Pickups" index="4" instance=ExtResource( 5 )]
 
 position = Vector2( 268.173, 180.229 )
+
+[node name="Shielding" parent="Pickups" index="5" instance=ExtResource( 6 )]
+
+position = Vector2( 233.625, 308.833 )
+
+[node name="FuelCell_Small" parent="Pickups" index="6" instance=ExtResource( 7 )]
+
+position = Vector2( 331.449, 181.521 )
 
 

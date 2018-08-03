@@ -18,8 +18,8 @@ func _ready():
 	add_signals_from_group("interactables", $HUD, "set_notification")
 	
 	add_signals_from_group("fuel_cells", player, "fuel_collected")
-	add_signals_from_group("scrap", player, "scrap_collected")
-	add_signals_from_group("upgrade", player, "upgrade_collected")
+	add_signals_from_group("scrap",      player, "scrap_collected")
+	add_signals_from_group("upgrade",    player, "upgrade_collected")
 	
 	player.get_node("Engine").add_child(camera)
 	
