@@ -2,6 +2,7 @@ extends Node
 
 export (PackedScene) var current_level
 
+
 func _ready():
 	
 	var level = current_level.instance()

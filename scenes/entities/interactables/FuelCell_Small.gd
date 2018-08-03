@@ -8,7 +8,7 @@ func _ready():
 	pass
 
 func entered(body):
-	pass
+	set_notification("I am the lizard queen")
 
 func exited(body):
 	pass

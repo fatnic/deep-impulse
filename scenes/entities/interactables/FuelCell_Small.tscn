@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 1.5, 2 )
 
-[node name="FuelCell_Small" index="0" groups=[
+[node name="FuelCell_Small" groups=[
 "fuel_cells",
 ] instance=ExtResource( 1 )]
 

@@ -135,6 +135,7 @@ func fit_fueltank():
 	$FuelTank/Sprite.visible = true
 	$FuelTank/CollisionShape2D.disabled = false
 	$FuelTank.mass = 2
+	thrust += 10
 	
 func fit_shielding():
 	shielding_fitted = true
@@ -144,6 +145,7 @@ func fit_shielding():
 	$ShieldRight/CollisionShape2D.disabled = false
 	$ShieldLeft.mass = 2
 	$ShieldRight.mass = 2
+	thrust += 5
 	
 	
 func jettison_fueltank():
