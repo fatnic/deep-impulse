@@ -15,7 +15,7 @@ func _ready():
 	
 	player.connect("fuel_changed", $HUD, "update_fuelbar")
 	player.connect("structural_changed", $HUD, "update_structural")
-#
+	
 	add_signals_from_group("interactables", $HUD, "set_notification")
 	
 	add_signals_from_group("fuel_cells", player, "fuel_collected")
@@ -37,6 +37,5 @@ func setup_camera():
 	
 
 func add_signals_from_group(group_name, target, method):
-	var group = get_tree().get_nodes_in_group(group_name)
-	for item in group:
+	for item in get_tree().get_nodes_in_group(group_name):
 		item.connect(method, target, method)

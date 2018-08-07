@@ -24,7 +24,6 @@ func _ready():
 	emit_signal("fuel_changed", fuel * 100 / max_fuel)
 
 
-
 func rotate_ship(direction):
 	if fuel <= 0: return
 	$Engine.angular_velocity = direction * turn_speed
@@ -48,9 +47,11 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jettison"):
 		jettison_fueltank()
 		
+	if Input.is_action_just_pressed("jet_shields"):
+		jettison_shields()
+		
 	check_collision()
 		
-	
 		
 func thrust(force):
 
@@ -129,6 +130,7 @@ func breakup(origin):
 func upgrade_collected(upgrade):
 	print(upgrade)
 	call(upgrade)
+
 	
 func fit_fueltank():
 	fuel_tank_fitted = true
@@ -152,4 +154,19 @@ func jettison_fueltank():
 	if fuel_tank_fitted:
 		fuel_tank_fitted = false
 		$FuelTankJoint.free()
-		$FuelTank.apply_impulse(Vector2(2, 0), Vector2(0, -80).rotated($FuelTank.rotation))
+		$FuelTank.apply_impulse(Vector2(5, 0), Vector2(0, -120).rotated($FuelTank.rotation))
+		
+func jettison_shields():
+	$ShieldLeftJoint.free()
+	$ShieldLeft.apply_impulse(Vector2(2, 0), Vector2(-100, 0).rotated($FuelTank.rotation))
+	$ShieldRightJoint.free()
+	$ShieldRight.apply_impulse(Vector2(2, 0), Vector2(100, 0).rotated($FuelTank.rotation))
+	$Timer.start()
+
+
+func _on_Timer_timeout():
+	$ShieldFade.play("fadeout")	
+
+func _on_ShieldFade_animation_finished(anim_name):
+	$ShieldRight.queue_free()
+	$ShieldLeft.queue_free()

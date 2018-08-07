@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/textures/entities/engine.png" type="Texture" id=2]
@@ -76,7 +76,40 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color" ]
 
-[node name="Player" type="Node2D" index="0"]
+[sub_resource type="Animation" id=7]
+
+resource_name = "fadeout"
+length = 0.8
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ShieldRight:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Player" type="Node2D" groups=[
+"player",
+]]
 
 script = ExtResource( 1 )
 thrust = 25
@@ -84,7 +117,7 @@ max_thrust = 100
 turn_speed = 1.8
 max_fuel = 100
 fuel = 100
-fuel_per_second = 5.0
+fuel_per_second = 0.1
 max_structural = 100
 structural = 100
 
@@ -118,7 +151,9 @@ bias = 0.0
 disable_collision = false
 softness = 0.0
 
-[node name="Engine" type="RigidBody2D" parent="." index="3"]
+[node name="Engine" type="RigidBody2D" parent="." index="3" groups=[
+"player",
+]]
 
 editor/display_folded = true
 position = Vector2( 0, 4 )
@@ -171,22 +206,29 @@ texture = null
 normal_map = null
 h_frames = 1
 v_frames = 1
-_sections_unfolded = [ "Time" ]
+_sections_unfolded = [ "Drawing", "Time" ]
 
-[node name="FuelTank" parent="." index="4" instance=ExtResource( 3 )]
+[node name="FuelTank" parent="." index="4" groups=[
+"player",
+] instance=ExtResource( 3 )]
 
 mass = 0.01
 _sections_unfolded = [ "Transform" ]
 
-[node name="ShieldLeft" parent="." index="5" instance=ExtResource( 4 )]
+[node name="ShieldLeft" parent="." index="5" groups=[
+"player",
+] instance=ExtResource( 4 )]
 
+editor/display_folded = false
 position = Vector2( -2.6, 3.1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="ShieldRight" parent="." index="6" instance=ExtResource( 5 )]
+[node name="ShieldRight" parent="." index="6" groups=[
+"player",
+] instance=ExtResource( 5 )]
 
 position = Vector2( 2.6, 3.1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ThrustSound" type="AudioStreamPlayer" parent="." index="7"]
 
@@ -196,5 +238,26 @@ pitch_scale = 0.8
 autoplay = false
 mix_target = 0
 bus = "Master"
+
+[node name="ShieldFade" type="AnimationPlayer" parent="." index="8"]
+
+root_node = NodePath("../ShieldLeft")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/fadeout = SubResource( 7 )
+blend_times = [  ]
+
+[node name="Timer" type="Timer" parent="." index="9"]
+
+process_mode = 1
+wait_time = 4.0
+one_shot = true
+autostart = false
+
+[connection signal="animation_finished" from="ShieldFade" to="." method="_on_ShieldFade_animation_finished"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 
